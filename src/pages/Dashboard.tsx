@@ -73,14 +73,29 @@ export default function Dashboard() {
             <div className="flex flex-col gap-3">
               {recentLogs.map((log) => (
                 <Link to={`/log/${log.id}`} key={log.id} className="flex items-center justify-between p-4 border border-gray-100 rounded-lg hover:border-gray-300 transition-colors bg-white shadow-sm">
-                  <div className="flex flex-col">
-                    <span className="text-xs text-gray-400 font-medium mb-1">{log.date}</span>
-                    <span className="text-sm font-semibold text-black flex items-center gap-2">
-                      {log.note.length > 25 ? log.note.substring(0, 25) + '...' : log.note || '제목 없음'}
+                  <div className="flex flex-col gap-1.5 flex-1 pr-4">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-gray-400 font-medium">{log.date}</span>
                       {log.important && <span className="text-black text-xs">★</span>}
+                    </div>
+                    <div className="flex flex-wrap gap-1">
+                      {log.clubs.length > 0 ? (
+                        log.clubs.map(club => (
+                          <span key={club} className="text-[10px] font-bold bg-gray-100 text-gray-600 px-2 py-0.5 rounded-md">
+                            {club}
+                          </span>
+                        ))
+                      ) : (
+                        <span className="text-[10px] font-bold bg-gray-50 text-gray-400 px-2 py-0.5 rounded-md border border-gray-100">
+                          클럽 미지정
+                        </span>
+                      )}
+                    </div>
+                    <span className="text-sm font-semibold text-black mt-1 leading-snug">
+                      {log.note.length > 30 ? log.note.substring(0, 30) + '...' : log.note || '제목 없음'}
                     </span>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-gray-300" />
+                  <ChevronRight className="w-5 h-5 text-gray-300 flex-shrink-0" />
                 </Link>
               ))}
             </div>
