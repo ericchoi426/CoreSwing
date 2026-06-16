@@ -1,12 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Save } from 'lucide-react';
 import { useLogs } from '../hooks/useLogs';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function PracticeLogForm() {
   const navigate = useNavigate();
-  const { addLog } = useLogs();
+  const { id } = useParams<{ id: string }>();
+  const { logs, addLog, updateLog } = useLogs();
   
+  const isEditMode = Boolean(id);
+
   const [selectedClubs, setSelectedClubs] = useState<string[]>([]);
   const [note, setNote] = useState('');
   const [important, setImportant] = useState(false);
@@ -16,6 +19,18 @@ export default function PracticeLogForm() {
     impact: false,
   });
   const [isSaving, setIsSaving] = useState(false);
+
+  useEffect(() => {
+    if (isEditMode && logs.length > 0) {
+      const existingLog = logs.find(l => l.id === id);
+      if (existingLog) {
+        setSelectedClubs(existingLog.clubs);
+        setNote(existingLog.note);
+        setImportant(existingLog.important);
+        setChecklist(existingLog.checklist);
+      }
+    }
+  }, [isEditMode, id, logs]);
 
   const clubs = ['드라이버', '우드', '유틸리티', '롱아이언', '미들아이언', '숏아이언', '웨지', '퍼터'];
 
@@ -33,14 +48,23 @@ export default function PracticeLogForm() {
 
     setIsSaving(true);
     try {
-      await addLog({
-        clubs: selectedClubs,
-        note,
-        checklist,
-        important
-      });
-      // Clear form and navigate back to dashboard
-      navigate('/');
+      if (isEditMode && id) {
+        await updateLog(id, {
+          clubs: selectedClubs,
+          note,
+          checklist,
+          important
+        });
+      } else {
+        await addLog({
+          clubs: selectedClubs,
+          note,
+          checklist,
+          important
+        });
+      }
+      // Navigate back
+      navigate(-1);
     } catch (err) {
       console.error(err);
       alert('저장에 실패했습니다. 로그인 상태를 확인해 주세요.');
@@ -52,13 +76,15 @@ export default function PracticeLogForm() {
   return (
     <div className="p-6 bg-white min-h-full flex flex-col">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-bold text-black">새 연습 일지 작성</h2>
+        <h2 className="text-xl font-bold text-black">
+          {isEditMode ? '연습 일지 수정' : '새 연습 일지 작성'}
+        </h2>
         <button 
           onClick={handleSave}
           disabled={isSaving}
           className="flex items-center gap-2 bg-black text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-gray-800 transition-colors disabled:opacity-50"
         >
-          <Save className="w-4 h-4" /> {isSaving ? '저장 중...' : '저장'}
+          <Save className="w-4 h-4" /> {isSaving ? '저장 중...' : (isEditMode ? '수정' : '저장')}
         </button>
       </div>
 

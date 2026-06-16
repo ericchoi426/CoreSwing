@@ -33,8 +33,8 @@ function AppContent() {
     hint: 'ericchoi426@gmail.com', // To optimize UX as requested
   });
 
-  // Hide header and bottom nav on full-screen modes like Field Mode and Log Detail
-  const hideChrome = isFieldMode || isLogDetail;
+  // Hide header and bottom nav on full-screen modes like Field Mode and Log Detail/Edit
+  const hideChrome = isFieldMode || isLogDetail || location.pathname.includes('/edit');
 
   return (
     <div className={`min-h-screen max-w-md mx-auto shadow-2xl flex flex-col relative overflow-hidden ${isFieldMode ? 'bg-black' : 'bg-white'}`}>
@@ -65,6 +65,7 @@ function AppContent() {
           <Route path="/theory" element={<TheoryLibrary />} />
           <Route path="/log" element={<PracticeLogForm />} />
           <Route path="/log/:id" element={<LogDetail />} />
+          <Route path="/log/:id/edit" element={<PracticeLogForm />} />
           <Route path="/field" element={<FieldMode />} />
         </Routes>
       </main>

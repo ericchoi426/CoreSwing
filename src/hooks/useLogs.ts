@@ -43,5 +43,29 @@ export function useLogs() {
     }
   };
 
-  return { logs, loading, error, fetchLogs, addLog };
+  const updateLog = async (id: string, updatedLog: Omit<PracticeLog, 'id' | 'date'>) => {
+    if (!accessToken || !fileId) throw new Error('Not initialized');
+
+    const currentLogs = [...logs];
+    const index = currentLogs.findIndex(log => log.id === id);
+    if (index === -1) throw new Error('Log not found');
+
+    currentLogs[index] = {
+      ...currentLogs[index],
+      ...updatedLog
+    };
+
+    await writeLogs(accessToken, fileId, currentLogs);
+    setLogs(currentLogs);
+  };
+
+  const deleteLog = async (id: string) => {
+    if (!accessToken || !fileId) throw new Error('Not initialized');
+
+    const updatedLogs = logs.filter(log => log.id !== id);
+    await writeLogs(accessToken, fileId, updatedLogs);
+    setLogs(updatedLogs);
+  };
+
+  return { logs, loading, error, fetchLogs, addLog, updateLog, deleteLog };
 }

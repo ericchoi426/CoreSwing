@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Star, Calendar, CheckCircle2, Circle } from 'lucide-react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import { ArrowLeft, Star, Calendar, CheckCircle2, Circle, Pencil, Trash2 } from 'lucide-react';
 import { useLogs } from '../hooks/useLogs';
 import { PracticeLog } from '../types';
 import { useAuth } from '../context/AuthContext';
@@ -9,8 +9,9 @@ export default function LogDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { accessToken } = useAuth();
-  const { logs, fetchLogs, loading } = useLogs();
+  const { logs, fetchLogs, loading, deleteLog } = useLogs();
   const [log, setLog] = useState<PracticeLog | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     if (accessToken && logs.length === 0) {
@@ -26,6 +27,22 @@ export default function LogDetail() {
       }
     }
   }, [id, logs]);
+
+  const handleDelete = async () => {
+    if (!id || !log) return;
+    const confirmDelete = window.confirm('정말로 이 연습 일지를 삭제하시겠습니까?');
+    if (!confirmDelete) return;
+
+    setIsDeleting(true);
+    try {
+      await deleteLog(id);
+      navigate('/', { replace: true });
+    } catch (err) {
+      console.error(err);
+      alert('삭제에 실패했습니다.');
+      setIsDeleting(false);
+    }
+  };
 
   if (!accessToken) {
     return (
@@ -57,7 +74,7 @@ export default function LogDetail() {
   if (!log) return null;
 
   return (
-    <div className="bg-white min-h-screen flex flex-col">
+    <div className="bg-white min-h-screen flex flex-col pb-24">
       {/* Header */}
       <div className="p-6 flex items-center justify-between border-b border-gray-100">
         <button onClick={() => navigate(-1)} className="text-black">
@@ -116,6 +133,25 @@ export default function LogDetail() {
             </div>
           </div>
         </section>
+      </div>
+
+      {/* Action Buttons */}
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-100 max-w-md mx-auto flex gap-3">
+        <button 
+          onClick={handleDelete}
+          disabled={isDeleting}
+          className="flex-1 flex items-center justify-center gap-2 py-3 border border-red-200 text-red-500 rounded-lg font-bold text-sm hover:bg-red-50 transition-colors disabled:opacity-50"
+        >
+          <Trash2 className="w-4 h-4" />
+          {isDeleting ? '삭제 중...' : '삭제'}
+        </button>
+        <Link 
+          to={`/log/${log.id}/edit`}
+          className="flex-[2] flex items-center justify-center gap-2 py-3 bg-black text-white rounded-lg font-bold text-sm hover:bg-gray-800 transition-colors"
+        >
+          <Pencil className="w-4 h-4" />
+          수정
+        </Link>
       </div>
     </div>
   );
