@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Star, Calendar, CheckCircle2, Circle } from 'lucide-react';
 import { useLogs } from '../hooks/useLogs';
 import { PracticeLog } from '../types';
