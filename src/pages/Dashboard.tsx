@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { PenSquare, BookOpen, ChevronRight } from 'lucide-react';
+import { SquarePen, BookOpen, ChevronRight } from 'lucide-react';
 import { useLogs } from '../hooks/useLogs';
 import { useAuth } from '../context/AuthContext';
 
@@ -35,7 +35,7 @@ export default function Dashboard() {
           to="/log" 
           className="flex flex-col items-center justify-center gap-3 bg-gray-100 hover:bg-gray-200 active:bg-gray-300 transition-colors rounded-xl p-6 border border-gray-200"
         >
-          <PenSquare className="w-8 h-8 text-black" strokeWidth={1.5} />
+          <SquarePen className="w-8 h-8 text-black" strokeWidth={1.5} />
           <span className="font-semibold text-sm text-center">New Log</span>
         </Link>
         <Link 
