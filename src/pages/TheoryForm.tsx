@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft, Book, Activity, Flag, Play, Brain, Save } from 'lucide-react';
+import { ArrowLeft, Book, Activity, Flag, Play, Brain } from 'lucide-react';
 import { useTheories } from '../hooks/useTheories';
 import { useAuth } from '../context/AuthContext';
 
