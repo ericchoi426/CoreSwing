@@ -26,13 +26,16 @@ export function useLogs() {
   const addLog = async (newLog: Omit<PracticeLog, 'id' | 'date'>) => {
     if (!accessToken || !fileId) throw new Error('Not authenticated');
     
+    // Always fetch fresh data to prevent overwriting
+    const freshLogs: PracticeLog[] = await readLogs(accessToken, fileId);
+    
     const log: PracticeLog = {
       ...newLog,
       id: crypto.randomUUID(),
       date: new Date().toISOString().split('T')[0],
     };
 
-    const updatedLogs = [log, ...logs]; // Prepend newest
+    const updatedLogs = [log, ...freshLogs]; // Prepend newest
     
     try {
       await writeLogs(accessToken, fileId, updatedLogs);
@@ -46,23 +49,25 @@ export function useLogs() {
   const updateLog = async (id: string, updatedLog: Omit<PracticeLog, 'id' | 'date'>) => {
     if (!accessToken || !fileId) throw new Error('Not initialized');
 
-    const currentLogs = [...logs];
-    const index = currentLogs.findIndex(log => log.id === id);
+    const freshLogs: PracticeLog[] = await readLogs(accessToken, fileId);
+    const index = freshLogs.findIndex(log => log.id === id);
     if (index === -1) throw new Error('Log not found');
 
-    currentLogs[index] = {
-      ...currentLogs[index],
+    freshLogs[index] = {
+      ...freshLogs[index],
       ...updatedLog
     };
 
-    await writeLogs(accessToken, fileId, currentLogs);
-    setLogs(currentLogs);
+    await writeLogs(accessToken, fileId, freshLogs);
+    setLogs(freshLogs);
   };
 
   const deleteLog = async (id: string) => {
     if (!accessToken || !fileId) throw new Error('Not initialized');
 
-    const updatedLogs = logs.filter(log => log.id !== id);
+    const freshLogs: PracticeLog[] = await readLogs(accessToken, fileId);
+    const updatedLogs = freshLogs.filter(log => log.id !== id);
+    
     await writeLogs(accessToken, fileId, updatedLogs);
     setLogs(updatedLogs);
   };

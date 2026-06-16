@@ -3,10 +3,13 @@ import { Save } from 'lucide-react';
 import { useLogs } from '../hooks/useLogs';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { useAuth } from '../context/AuthContext';
+
 export default function PracticeLogForm() {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const { logs, addLog, updateLog } = useLogs();
+  const { logs, fetchLogs, addLog, updateLog } = useLogs();
+  const { accessToken } = useAuth();
   
   const isEditMode = Boolean(id);
 
@@ -19,6 +22,12 @@ export default function PracticeLogForm() {
     impact: false,
   });
   const [isSaving, setIsSaving] = useState(false);
+
+  useEffect(() => {
+    if (accessToken) {
+      fetchLogs();
+    }
+  }, [accessToken, fetchLogs]);
 
   useEffect(() => {
     if (isEditMode && logs.length > 0) {
