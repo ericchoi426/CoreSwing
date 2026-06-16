@@ -4,9 +4,9 @@ export const FILE_NAME = 'coreswing_log.json';
  * Ensures the JSON file exists in the user's Google Drive.
  * If not, it creates an empty array structure.
  */
-export const initializeDriveFile = async (accessToken: string) => {
+export const initializeDriveFile = async (accessToken: string, fileName: string) => {
   // Try to find the file
-  const searchRes = await fetch(`https://www.googleapis.com/drive/v3/files?q=name='${FILE_NAME}' and trashed=false`, {
+  const searchRes = await fetch(`https://www.googleapis.com/drive/v3/files?q=name='${fileName}' and trashed=false`, {
     headers: {
       Authorization: `Bearer ${accessToken}`
     }
@@ -20,7 +20,7 @@ export const initializeDriveFile = async (accessToken: string) => {
 
   // Create the file if it doesn't exist
   const metadata = {
-    name: FILE_NAME,
+    name: fileName,
     mimeType: 'application/json'
   };
 

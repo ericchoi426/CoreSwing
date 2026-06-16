@@ -3,6 +3,7 @@ import { useGoogleLogin } from '@react-oauth/google';
 import { Home, BookOpen, SquarePen } from 'lucide-react';
 import Dashboard from './pages/Dashboard';
 import TheoryLibrary from './pages/TheoryLibrary';
+import TheoryForm from './pages/TheoryForm';
 import PracticeLogForm from './pages/PracticeLogForm';
 import FieldMode from './pages/FieldMode';
 import LogDetail from './pages/LogDetail';
@@ -21,8 +22,9 @@ function AppContent() {
     onSuccess: async (tokenResponse) => {
       setIsInitializing(true);
       try {
-        const fileId = await initializeDriveFile(tokenResponse.access_token);
-        setAuth(tokenResponse.access_token, fileId);
+        const fileId = await initializeDriveFile(tokenResponse.access_token, 'coreswing_log.json');
+        const theoryFileId = await initializeDriveFile(tokenResponse.access_token, 'coreswing_theory.json');
+        setAuth(tokenResponse.access_token, fileId, theoryFileId);
       } catch (err) {
         console.error('Failed to initialize drive file', err);
         alert('구글 드라이브 연결에 실패했습니다.');
@@ -35,7 +37,7 @@ function AppContent() {
   });
 
   // Hide header and bottom nav on full-screen modes like Field Mode and Log Detail/Edit
-  const hideChrome = isFieldMode || isLogDetail || location.pathname.includes('/edit');
+  const hideChrome = isFieldMode || isLogDetail || location.pathname.includes('/edit') || location.pathname.includes('/new');
 
   return (
     <div className={`min-h-screen max-w-md mx-auto shadow-2xl flex flex-col relative overflow-hidden ${isFieldMode ? 'bg-black' : 'bg-white'}`}>
@@ -64,6 +66,8 @@ function AppContent() {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/theory" element={<TheoryLibrary />} />
+          <Route path="/theory/new" element={<TheoryForm />} />
+          <Route path="/theory/:id/edit" element={<TheoryForm />} />
           <Route path="/log" element={<PracticeLogForm />} />
           <Route path="/log/:id" element={<LogDetail />} />
           <Route path="/log/:id/edit" element={<PracticeLogForm />} />

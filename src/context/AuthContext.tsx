@@ -3,7 +3,8 @@ import { createContext, useContext, useState, ReactNode } from 'react';
 interface AuthContextType {
   accessToken: string | null;
   fileId: string | null;
-  setAuth: (token: string, file: string) => void;
+  theoryFileId: string | null;
+  setAuth: (token: string, file: string, theoryFile: string) => void;
   logout: () => void;
 }
 
@@ -12,19 +13,22 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [fileId, setFileId] = useState<string | null>(null);
+  const [theoryFileId, setTheoryFileId] = useState<string | null>(null);
 
-  const setAuth = (token: string, file: string) => {
+  const setAuth = (token: string, file: string, theoryFile: string) => {
     setAccessToken(token);
     setFileId(file);
+    setTheoryFileId(theoryFile);
   };
 
   const logout = () => {
     setAccessToken(null);
     setFileId(null);
+    setTheoryFileId(null);
   };
 
   return (
-    <AuthContext.Provider value={{ accessToken, fileId, setAuth, logout }}>
+    <AuthContext.Provider value={{ accessToken, fileId, theoryFileId, setAuth, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -10,3 +10,11 @@ export interface PracticeLog {
   };
   important: boolean;
 }
+
+export interface Theory {
+  id: string;
+  categoryId: string; // 'fundamentals', 'clubs', 'situations', 'video', 'mental'
+  title: string;
+  content: string;
+  url?: string;
+}
