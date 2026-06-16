@@ -22,7 +22,7 @@ function AppContent() {
         setAuth(tokenResponse.access_token, fileId);
       } catch (err) {
         console.error('Failed to initialize drive file', err);
-        alert('Failed to connect to Google Drive.');
+        alert('구글 드라이브 연결에 실패했습니다.');
       } finally {
         setIsInitializing(false);
       }
@@ -43,11 +43,11 @@ function AppContent() {
               disabled={isInitializing}
               className="text-xs font-bold text-gray-500 uppercase tracking-widest hover:text-black transition-colors disabled:opacity-50"
             >
-              {isInitializing ? 'Connecting...' : 'Login'}
+              {isInitializing ? '연결 중...' : '로그인'}
             </button>
           ) : (
             <span className="text-xs font-bold text-gray-500 uppercase tracking-widest">
-              Connected
+              연결됨
             </span>
           )}
         </header>
@@ -67,13 +67,13 @@ function AppContent() {
       {!isFieldMode && (
         <nav className="absolute bottom-0 w-full bg-white border-t border-gray-100 flex justify-around py-4 z-10 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
           <Link to="/" className={`flex flex-col items-center transition-colors ${location.pathname === '/' ? 'text-black' : 'text-gray-400 hover:text-black'}`}>
-            <span className="text-[10px] font-bold uppercase tracking-widest">Home</span>
+            <span className="text-[10px] font-bold uppercase tracking-widest">홈</span>
           </Link>
           <Link to="/theory" className={`flex flex-col items-center transition-colors ${location.pathname === '/theory' ? 'text-black' : 'text-gray-400 hover:text-black'}`}>
-            <span className="text-[10px] font-bold uppercase tracking-widest">Theory</span>
+            <span className="text-[10px] font-bold uppercase tracking-widest">이론</span>
           </Link>
           <Link to="/log" className={`flex flex-col items-center transition-colors ${location.pathname === '/log' ? 'text-black' : 'text-gray-400 hover:text-black'}`}>
-            <span className="text-[10px] font-bold uppercase tracking-widest">Log</span>
+            <span className="text-[10px] font-bold uppercase tracking-widest">일지</span>
           </Link>
         </nav>
       )}

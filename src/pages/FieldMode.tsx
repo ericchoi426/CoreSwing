@@ -25,22 +25,22 @@ export default function FieldMode() {
         <Link to="/" className="text-white">
           <ArrowLeft className="w-6 h-6" />
         </Link>
-        <h2 className="text-lg font-bold tracking-widest uppercase">Field Mode</h2>
+        <h2 className="text-lg font-bold tracking-widest uppercase">필드 모드</h2>
         <div className="w-6" /> {/* Spacer */}
       </div>
 
       <div className="flex-1 flex flex-col justify-center px-6 pb-20">
         {!accessToken ? (
           <div className="text-center text-gray-500 font-medium text-sm">
-            Please login to view field tips.
+            필드 요약을 보려면 로그인해 주세요.
           </div>
         ) : loading ? (
           <div className="text-center text-gray-500 font-medium text-sm">
-            Loading...
+            로딩 중...
           </div>
         ) : flashcards.length === 0 ? (
           <div className="text-center text-gray-500 font-medium text-sm">
-            No important logs found. <br/> Mark some logs with ★ to see them here.
+            중요 표시된 기록이 없습니다. <br/> 연습 일지에서 ★ 표시를 해보세요.
           </div>
         ) : (
           <Swiper
@@ -53,13 +53,13 @@ export default function FieldMode() {
                 <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8 aspect-[3/4] flex flex-col shadow-2xl relative">
                   <Star className="absolute top-6 right-6 w-5 h-5 text-gray-500 fill-current" />
                   <h3 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">
-                    {card.clubs.length > 0 ? card.clubs.join(', ') : 'General Tip'}
+                    {card.clubs.length > 0 ? card.clubs.join(', ') : '일반 팁'}
                   </h3>
                   <p className="text-xl leading-relaxed font-medium flex-1 flex items-center justify-center text-center">
                     "{card.note}"
                   </p>
                   <div className="mt-4 text-center text-xs text-gray-600 font-medium tracking-widest uppercase">
-                    Swipe for next
+                    밀어서 다음 보기
                   </div>
                 </div>
               </SwiperSlide>

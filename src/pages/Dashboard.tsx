@@ -21,10 +21,10 @@ export default function Dashboard() {
     <div className="p-6 flex flex-col gap-8 h-full bg-white">
       {/* Today's Goal */}
       <section>
-        <h2 className="text-sm font-bold text-gray-500 uppercase tracking-wide mb-3">Today's Goal</h2>
+        <h2 className="text-sm font-bold text-gray-500 uppercase tracking-wide mb-3">오늘의 연습 목표</h2>
         <div className="border border-gray-200 rounded-lg p-4 bg-gray-50 text-black font-medium">
           <p className="text-sm leading-relaxed">
-            Keep the right elbow tucked during downswing to prevent over-the-top. Focus on tempo (1-2, 3).
+            다운스윙 시 오른쪽 팔꿈치를 몸에 붙여 오버더탑을 방지하세요. 템포(1-2, 3)에 집중하세요.
           </p>
         </div>
       </section>
@@ -36,38 +36,38 @@ export default function Dashboard() {
           className="flex flex-col items-center justify-center gap-3 bg-gray-100 hover:bg-gray-200 active:bg-gray-300 transition-colors rounded-xl p-6 border border-gray-200"
         >
           <SquarePen className="w-8 h-8 text-black" strokeWidth={1.5} />
-          <span className="font-semibold text-sm text-center">New Log</span>
+          <span className="font-semibold text-sm text-center">새 연습 일지 작성</span>
         </Link>
         <Link 
           to="/field" 
           className="flex flex-col items-center justify-center gap-3 bg-gray-900 hover:bg-black active:bg-gray-800 transition-colors rounded-xl p-6 border border-gray-900"
         >
           <BookOpen className="w-8 h-8 text-white" strokeWidth={1.5} />
-          <span className="font-semibold text-sm text-white text-center">Field Mode</span>
+          <span className="font-semibold text-sm text-white text-center">필드용 핵심 요약</span>
         </Link>
       </section>
 
       {/* Recent Logs */}
       <section className="flex-1 overflow-hidden flex flex-col">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm font-bold text-gray-500 uppercase tracking-wide">Recent Logs</h2>
+          <h2 className="text-sm font-bold text-gray-500 uppercase tracking-wide">최근 연습 기록</h2>
           {logs.length > 3 && (
-            <button className="text-xs font-semibold text-black underline">View All</button>
+            <button className="text-xs font-semibold text-black underline">전체 보기</button>
           )}
         </div>
         
         <div className="flex-1 overflow-y-auto pr-1">
           {!accessToken ? (
             <div className="flex items-center justify-center h-24 text-sm font-medium text-gray-400 bg-gray-50 rounded-lg border border-gray-100">
-              Please login to view logs
+              기록을 보려면 로그인해 주세요
             </div>
           ) : loading ? (
             <div className="flex items-center justify-center h-24 text-sm font-medium text-gray-400">
-              Loading...
+              로딩 중...
             </div>
           ) : recentLogs.length === 0 ? (
             <div className="flex items-center justify-center h-24 text-sm font-medium text-gray-400 bg-gray-50 rounded-lg border border-gray-100">
-              No recent logs found.
+              최근 연습 기록이 없습니다.
             </div>
           ) : (
             <div className="flex flex-col gap-3">
@@ -76,7 +76,7 @@ export default function Dashboard() {
                   <div className="flex flex-col">
                     <span className="text-xs text-gray-400 font-medium mb-1">{log.date}</span>
                     <span className="text-sm font-semibold text-black flex items-center gap-2">
-                      {log.note.length > 25 ? log.note.substring(0, 25) + '...' : log.note || 'No Title'}
+                      {log.note.length > 25 ? log.note.substring(0, 25) + '...' : log.note || '제목 없음'}
                       {log.important && <span className="text-black text-xs">★</span>}
                     </span>
                   </div>

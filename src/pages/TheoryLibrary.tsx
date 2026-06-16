@@ -11,24 +11,24 @@ export default function TheoryLibrary() {
   const sections = [
     {
       id: 'fundamentals',
-      title: 'Fundamentals',
-      content: 'Grip, Posture, and Alignment are the core of every golf swing. Keep the grip light but firm.'
+      title: '기본 원리',
+      content: '그립, 셋업 자세, 정렬은 모든 골프 스윙의 핵심입니다. 그립은 가볍지만 견고하게 잡으세요.'
     },
     {
       id: 'clubs',
-      title: 'Swing by Club',
-      content: 'Driver: Ball forward, sweep up. Irons: Ball middle, hit down and take a divot. Wedges: Open stance, weight forward.'
+      title: '클럽별 스윙',
+      content: '드라이버: 공을 왼발 쪽에 두고 어퍼블로우로 치세요. 아이언: 공을 중앙에 두고 다운블로우로 디봇을 내세요. 웨지: 스탠스를 열고 체중을 왼쪽에 두세요.'
     },
     {
       id: 'situations',
-      title: 'Situational Swings',
-      content: 'Bunker: Open club face, hit sand 2 inches behind ball. Rough: Steeper angle of attack, grip firmer.'
+      title: '상황별 스윙',
+      content: '벙커: 클럽 페이스를 열고 공 뒤 5cm 모래를 치세요. 러프: 가파른 궤도로 스윙하고 그립을 더 단단히 잡으세요.'
     }
   ];
 
   return (
     <div className="p-6 bg-white min-h-full">
-      <h2 className="text-xl font-bold text-black mb-6">Theory Library</h2>
+      <h2 className="text-xl font-bold text-black mb-6">이론 모음</h2>
       
       <div className="flex flex-col gap-3">
         {sections.map((sec) => (
