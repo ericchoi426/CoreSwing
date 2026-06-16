@@ -72,7 +72,7 @@ export default function Dashboard() {
           ) : (
             <div className="flex flex-col gap-3">
               {recentLogs.map((log) => (
-                <div key={log.id} className="flex items-center justify-between p-4 border border-gray-100 rounded-lg hover:border-gray-300 transition-colors bg-white shadow-sm">
+                <Link to={`/log/${log.id}`} key={log.id} className="flex items-center justify-between p-4 border border-gray-100 rounded-lg hover:border-gray-300 transition-colors bg-white shadow-sm">
                   <div className="flex flex-col">
                     <span className="text-xs text-gray-400 font-medium mb-1">{log.date}</span>
                     <span className="text-sm font-semibold text-black flex items-center gap-2">
@@ -81,7 +81,7 @@ export default function Dashboard() {
                     </span>
                   </div>
                   <ChevronRight className="w-4 h-4 text-gray-300" />
-                </div>
+                </Link>
               ))}
             </div>
           )}
