@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { useGoogleLogin } from '@react-oauth/google';
+import { Home, BookOpen, SquarePen } from 'lucide-react';
 import Dashboard from './pages/Dashboard';
 import TheoryLibrary from './pages/TheoryLibrary';
 import PracticeLogForm from './pages/PracticeLogForm';
@@ -72,14 +73,17 @@ function AppContent() {
 
       {/* Bottom Navigation (Hidden in Field Mode & Log Detail) */}
       {!hideChrome && (
-        <nav className="absolute bottom-0 w-full bg-white border-t border-gray-100 flex justify-around py-4 z-10 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
-          <Link to="/" className={`flex flex-col items-center transition-colors ${location.pathname === '/' ? 'text-black' : 'text-gray-400 hover:text-black'}`}>
+        <nav className="absolute bottom-0 w-full bg-white border-t border-gray-100 flex justify-around py-3 z-10 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+          <Link to="/" className={`flex flex-col items-center gap-1 transition-colors ${location.pathname === '/' ? 'text-black' : 'text-gray-400 hover:text-black'}`}>
+            <Home className="w-5 h-5" strokeWidth={location.pathname === '/' ? 2.5 : 2} />
             <span className="text-[10px] font-bold uppercase tracking-widest">홈</span>
           </Link>
-          <Link to="/theory" className={`flex flex-col items-center transition-colors ${location.pathname === '/theory' ? 'text-black' : 'text-gray-400 hover:text-black'}`}>
+          <Link to="/theory" className={`flex flex-col items-center gap-1 transition-colors ${location.pathname === '/theory' ? 'text-black' : 'text-gray-400 hover:text-black'}`}>
+            <BookOpen className="w-5 h-5" strokeWidth={location.pathname === '/theory' ? 2.5 : 2} />
             <span className="text-[10px] font-bold uppercase tracking-widest">이론</span>
           </Link>
-          <Link to="/log" className={`flex flex-col items-center transition-colors ${location.pathname === '/log' ? 'text-black' : 'text-gray-400 hover:text-black'}`}>
+          <Link to="/log" className={`flex flex-col items-center gap-1 transition-colors ${location.pathname === '/log' ? 'text-black' : 'text-gray-400 hover:text-black'}`}>
+            <SquarePen className="w-5 h-5" strokeWidth={location.pathname === '/log' ? 2.5 : 2} />
             <span className="text-[10px] font-bold uppercase tracking-widest">일지</span>
           </Link>
         </nav>
