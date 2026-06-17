@@ -39,21 +39,21 @@ export default function TheoryLibrary() {
   };
 
   return (
-    <div className="p-6 bg-white min-h-full pb-32">
+    <div className="p-6 bg-transparent min-h-full pb-32">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-bold text-black">이론 모음</h2>
+        <h2 className="text-xl font-bold text-white drop-shadow-md">이론 모음</h2>
         <Link 
           to="/theory/new" 
-          className="bg-black text-white px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1 hover:bg-gray-800 transition-colors"
+          className="bg-white/10 border border-white/20 text-white px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1 hover:bg-white/20 backdrop-blur-md shadow-lg transition-all"
         >
           <Plus className="w-3 h-3" /> 새 이론
         </Link>
       </div>
       
       {theories.length === 0 ? (
-        <div className="text-center py-10 bg-gray-50 rounded-xl border border-gray-100">
-          <Book className="w-8 h-8 text-gray-300 mx-auto mb-3" />
-          <p className="text-sm font-semibold text-gray-400">등록된 이론이 없습니다.<br/>나만의 골프 이론을 작성해 보세요!</p>
+        <div className="text-center py-10 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10">
+          <Book className="w-8 h-8 text-white/30 mx-auto mb-3" />
+          <p className="text-sm font-semibold text-white/50">등록된 이론이 없습니다.<br/>나만의 골프 이론을 작성해 보세요!</p>
         </div>
       ) : (
         <div className="flex flex-col gap-3">
@@ -63,40 +63,40 @@ export default function TheoryLibrary() {
             const isOpen = openSection === theory.id;
 
             return (
-              <div key={theory.id} className="border border-gray-200 rounded-lg overflow-hidden bg-white shadow-sm">
+              <div key={theory.id} className="border border-white/10 rounded-3xl overflow-hidden bg-white/[0.03] backdrop-blur-md shadow-lg transition-all">
                 <button 
                   onClick={() => toggleSection(theory.id)}
-                  className="w-full flex items-center justify-between p-4 bg-white hover:bg-gray-50 transition-colors"
+                  className="w-full flex items-center justify-between p-5 bg-transparent hover:bg-white/[0.05] transition-colors"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="bg-gray-100 p-2 rounded-lg">
-                      <Icon className="w-4 h-4 text-gray-600" />
+                    <div className="bg-white/10 p-2.5 rounded-xl border border-white/5">
+                      <Icon className="w-4 h-4 text-white" />
                     </div>
                     <div className="flex flex-col items-start">
-                      <span className="text-[10px] font-bold text-gray-400 mb-0.5">{catInfo.label}</span>
-                      <span className="font-semibold text-sm text-black text-left leading-tight">{theory.title}</span>
+                      <span className="text-[10px] font-bold text-white/40 mb-0.5 tracking-wide">{catInfo.label}</span>
+                      <span className="font-semibold text-sm text-white text-left leading-tight opacity-90">{theory.title}</span>
                     </div>
                   </div>
                   {isOpen ? (
-                    <ChevronUp className="w-4 h-4 text-gray-400" />
+                    <ChevronUp className="w-5 h-5 text-white/30" />
                   ) : (
-                    <ChevronDown className="w-4 h-4 text-gray-400" />
+                    <ChevronDown className="w-5 h-5 text-white/30" />
                   )}
                 </button>
                 
                 {isOpen && (
-                  <div className="p-4 bg-gray-50 border-t border-gray-100">
-                    <p className="text-sm text-black leading-relaxed whitespace-pre-wrap mb-4">
+                  <div className="p-5 bg-black/20 border-t border-white/5">
+                    <p className="text-sm text-white/80 leading-relaxed whitespace-pre-wrap mb-5">
                       {theory.content}
                     </p>
                     
-                    <div className="flex items-center justify-between pt-3 border-t border-gray-200">
+                    <div className="flex items-center justify-between pt-4 border-t border-white/10">
                       {theory.url ? (
                         <a 
                           href={theory.url} 
                           target="_blank" 
                           rel="noopener noreferrer"
-                          className="flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-800 transition-colors"
+                          className="flex items-center gap-1.5 text-xs font-bold text-blue-400 hover:text-blue-300 transition-colors bg-blue-400/10 px-3 py-1.5 rounded-full"
                         >
                           <ExternalLink className="w-3.5 h-3.5" />
                           링크 열기
@@ -105,16 +105,16 @@ export default function TheoryLibrary() {
                         <div></div>
                       )}
                       
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-4">
                         <Link 
                           to={`/theory/${theory.id}/edit`} 
-                          className="text-xs font-bold text-gray-500 hover:text-black flex items-center gap-1"
+                          className="text-xs font-bold text-white/40 hover:text-white flex items-center gap-1.5 transition-colors"
                         >
                           <Pencil className="w-3.5 h-3.5" /> 수정
                         </Link>
                         <button 
                           onClick={(e) => handleDelete(e, theory.id)}
-                          className="text-xs font-bold text-red-400 hover:text-red-600 flex items-center gap-1"
+                          className="text-xs font-bold text-red-400/60 hover:text-red-400 flex items-center gap-1.5 transition-colors"
                         >
                           <Trash2 className="w-3.5 h-3.5" /> 삭제
                         </button>

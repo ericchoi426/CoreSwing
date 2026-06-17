@@ -67,25 +67,26 @@ export default function TheoryForm() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50 pb-20">
-      <header className="px-6 py-5 bg-white border-b border-gray-100 flex items-center justify-between sticky top-0 z-10">
-        <button onClick={() => navigate(-1)} className="p-2 -ml-2 text-gray-400 hover:text-black transition-colors">
+  return (
+    <div className="flex flex-col min-h-screen bg-transparent pb-20">
+      <header className="px-6 py-5 bg-black/40 backdrop-blur-xl border-b border-white/10 flex items-center justify-between sticky top-0 z-20 shadow-lg">
+        <button onClick={() => navigate(-1)} className="p-2 -ml-2 text-white/50 hover:text-white transition-colors">
           <ArrowLeft className="w-6 h-6" />
         </button>
-        <h1 className="text-lg font-bold text-black">{isEditMode ? '이론 수정' : '새 이론 작성'}</h1>
+        <h1 className="text-lg font-bold text-white drop-shadow-md">{isEditMode ? '이론 수정' : '새 이론 작성'}</h1>
         <button 
           onClick={handleSave} 
           disabled={isSaving}
-          className="p-2 -mr-2 text-black hover:text-gray-600 transition-colors disabled:opacity-50 flex items-center gap-1"
+          className="px-4 py-1.5 bg-white text-black rounded-full text-sm font-bold hover:bg-gray-200 transition-all disabled:opacity-50 shadow-[0_0_10px_rgba(255,255,255,0.2)]"
         >
-          <span className="text-sm font-bold">{isSaving ? '저장 중...' : '저장'}</span>
+          {isSaving ? '저장 중...' : '저장'}
         </button>
       </header>
 
-      <div className="p-6 flex flex-col gap-6">
+      <div className="p-6 flex flex-col gap-6 relative z-10">
         <section>
-          <h2 className="text-sm font-bold text-gray-900 mb-3">카테고리 선택</h2>
-          <div className="grid grid-cols-2 gap-2">
+          <h2 className="text-xs font-bold text-white/60 uppercase tracking-widest mb-3 px-1">카테고리 선택</h2>
+          <div className="grid grid-cols-2 gap-3">
             {CATEGORIES.map(cat => {
               const Icon = cat.icon;
               const isSelected = categoryId === cat.id;
@@ -93,8 +94,8 @@ export default function TheoryForm() {
                 <button
                   key={cat.id}
                   onClick={() => setCategoryId(cat.id)}
-                  className={`flex items-center gap-2 p-3 rounded-lg border transition-all ${
-                    isSelected ? 'border-black bg-black text-white' : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300'
+                  className={`flex items-center gap-2 p-3.5 rounded-2xl border transition-all backdrop-blur-md ${
+                    isSelected ? 'border-white bg-white text-black shadow-[0_0_15px_rgba(255,255,255,0.2)]' : 'border-white/10 bg-white/5 text-white/60 hover:border-white/30 hover:text-white'
                   }`}
                 >
                   <Icon className="w-4 h-4" />
@@ -106,36 +107,36 @@ export default function TheoryForm() {
         </section>
 
         <section>
-          <h2 className="text-sm font-bold text-gray-900 mb-3">제목</h2>
+          <h2 className="text-xs font-bold text-white/60 uppercase tracking-widest mb-3 px-1">제목</h2>
           <input
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="예: 드라이버 어드레스 기본"
-            className="w-full p-4 rounded-xl border border-gray-200 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all text-sm font-medium"
+            className="w-full p-4 rounded-2xl bg-white/5 border border-white/10 focus:outline-none focus:bg-white/10 focus:border-white/30 transition-all text-sm font-medium text-white placeholder-white/30 backdrop-blur-md"
           />
         </section>
 
         <section>
-          <h2 className="text-sm font-bold text-gray-900 mb-3">내용</h2>
+          <h2 className="text-xs font-bold text-white/60 uppercase tracking-widest mb-3 px-1">내용</h2>
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder="핵심 내용을 기록하세요..."
-            className="w-full p-4 rounded-xl border border-gray-200 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all text-sm font-medium min-h-[200px] resize-none"
+            className="w-full p-4 rounded-2xl bg-white/5 border border-white/10 focus:outline-none focus:bg-white/10 focus:border-white/30 transition-all text-sm font-medium text-white placeholder-white/30 min-h-[200px] resize-none backdrop-blur-md"
           />
         </section>
 
         <section>
-          <h2 className="text-sm font-bold text-gray-900 mb-3">참고 링크 (선택사항)</h2>
+          <h2 className="text-xs font-bold text-white/60 uppercase tracking-widest mb-3 px-1">참고 링크 (선택사항)</h2>
           <input
             type="url"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             placeholder="https://youtube.com/..."
-            className="w-full p-4 rounded-xl border border-gray-200 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all text-sm font-medium"
+            className="w-full p-4 rounded-2xl bg-white/5 border border-white/10 focus:outline-none focus:bg-white/10 focus:border-white/30 transition-all text-sm font-medium text-white placeholder-white/30 backdrop-blur-md"
           />
-          <p className="text-xs text-gray-400 mt-2">유튜브, 구글 문서, 블로그 등 관련 자료 링크를 추가하세요.</p>
+          <p className="text-[11px] font-medium text-white/40 mt-2 px-1">유튜브, 구글 문서, 블로그 등 관련 자료 링크를 추가하세요.</p>
         </section>
       </div>
     </div>

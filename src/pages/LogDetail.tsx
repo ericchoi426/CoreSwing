@@ -74,42 +74,43 @@ export default function LogDetail() {
   if (!log) return null;
 
   return (
-    <div className="bg-white min-h-screen flex flex-col pb-24">
+  return (
+    <div className="bg-transparent min-h-screen flex flex-col pb-24">
       {/* Header */}
-      <div className="p-6 flex items-center justify-between border-b border-gray-100">
-        <button onClick={() => navigate(-1)} className="text-black">
+      <div className="p-6 flex items-center justify-between bg-black/40 backdrop-blur-xl border-b border-white/10 sticky top-0 z-20 shadow-lg">
+        <button onClick={() => navigate(-1)} className="text-white/50 hover:text-white transition-colors">
           <ArrowLeft className="w-6 h-6" />
         </button>
-        <h2 className="text-lg font-bold text-black">일지 상세</h2>
-        <div className="w-6">{log.important && <Star className="w-5 h-5 text-black fill-current" />}</div>
+        <h2 className="text-lg font-bold text-white drop-shadow-md">일지 상세</h2>
+        <div className="w-6">{log.important && <Star className="w-5 h-5 text-yellow-500 fill-current drop-shadow-[0_0_5px_rgba(234,179,8,0.5)]" />}</div>
       </div>
 
-      <div className="flex-1 p-6 flex flex-col gap-8">
+      <div className="flex-1 p-6 flex flex-col gap-8 relative z-10">
         {/* Date */}
-        <section className="flex items-center gap-2 text-gray-500">
+        <section className="flex items-center gap-2 text-white/60">
           <Calendar className="w-4 h-4" />
-          <span className="text-sm font-semibold">{log.date}</span>
+          <span className="text-sm font-semibold tracking-wide">{log.date}</span>
         </section>
 
         {/* Clubs */}
         <section>
-          <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">연습한 클럽</h3>
-          <div className="flex flex-wrap gap-2">
+          <h3 className="text-xs font-bold text-white/40 uppercase tracking-widest mb-3 px-1">연습한 클럽</h3>
+          <div className="flex flex-wrap gap-2.5">
             {log.clubs.length > 0 ? log.clubs.map(club => (
-              <span key={club} className="px-3 py-1.5 rounded-full text-xs font-semibold bg-gray-100 text-black">
+              <span key={club} className="px-4 py-2 rounded-full text-xs font-bold bg-white/10 text-white backdrop-blur-md shadow-sm border border-white/5">
                 {club}
               </span>
             )) : (
-              <span className="text-sm text-gray-400">선택한 클럽이 없습니다.</span>
+              <span className="text-sm text-white/30 px-1">선택한 클럽이 없습니다.</span>
             )}
           </div>
         </section>
 
         {/* Note */}
         <section>
-          <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">깨달음</h3>
-          <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-            <p className="text-sm text-black leading-relaxed whitespace-pre-wrap">
+          <h3 className="text-xs font-bold text-white/40 uppercase tracking-widest mb-3 px-1">깨달음</h3>
+          <div className="bg-white/5 p-5 rounded-2xl border border-white/10 backdrop-blur-md shadow-lg">
+            <p className="text-sm text-white/90 leading-relaxed whitespace-pre-wrap">
               {log.note || '내용이 없습니다.'}
             </p>
           </div>
@@ -117,37 +118,39 @@ export default function LogDetail() {
 
         {/* Checklist */}
         <section>
-          <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">스윙 체크리스트</h3>
-          <div className="flex flex-col gap-3">
-            <div className="flex items-center gap-3">
-              {log.checklist.tempo ? <CheckCircle2 className="w-5 h-5 text-black" /> : <Circle className="w-5 h-5 text-gray-300" />}
-              <span className={`text-sm font-medium ${log.checklist.tempo ? 'text-black' : 'text-gray-400'}`}>부드러운 템포 (1-2, 3)</span>
+          <h3 className="text-xs font-bold text-white/40 uppercase tracking-widest mb-3 px-1">스윙 체크리스트</h3>
+          <div className="flex flex-col gap-4 bg-white/5 p-5 rounded-2xl border border-white/10 backdrop-blur-md shadow-lg">
+            <div className="flex items-center gap-4">
+              {log.checklist.tempo ? <CheckCircle2 className="w-5 h-5 text-white drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]" /> : <Circle className="w-5 h-5 text-white/20" />}
+              <span className={`text-sm font-medium transition-colors ${log.checklist.tempo ? 'text-white' : 'text-white/40'}`}>부드러운 템포 (1-2, 3)</span>
             </div>
-            <div className="flex items-center gap-3">
-              {log.checklist.balance ? <CheckCircle2 className="w-5 h-5 text-black" /> : <Circle className="w-5 h-5 text-gray-300" />}
-              <span className={`text-sm font-medium ${log.checklist.balance ? 'text-black' : 'text-gray-400'}`}>균형 잡힌 피니시</span>
+            <div className="h-px w-full bg-white/5"></div>
+            <div className="flex items-center gap-4">
+              {log.checklist.balance ? <CheckCircle2 className="w-5 h-5 text-white drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]" /> : <Circle className="w-5 h-5 text-white/20" />}
+              <span className={`text-sm font-medium transition-colors ${log.checklist.balance ? 'text-white' : 'text-white/40'}`}>균형 잡힌 피니시</span>
             </div>
-            <div className="flex items-center gap-3">
-              {log.checklist.impact ? <CheckCircle2 className="w-5 h-5 text-black" /> : <Circle className="w-5 h-5 text-gray-300" />}
-              <span className={`text-sm font-medium ${log.checklist.impact ? 'text-black' : 'text-gray-400'}`}>견고한 임팩트</span>
+            <div className="h-px w-full bg-white/5"></div>
+            <div className="flex items-center gap-4">
+              {log.checklist.impact ? <CheckCircle2 className="w-5 h-5 text-white drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]" /> : <Circle className="w-5 h-5 text-white/20" />}
+              <span className={`text-sm font-medium transition-colors ${log.checklist.impact ? 'text-white' : 'text-white/40'}`}>견고한 임팩트</span>
             </div>
           </div>
         </section>
       </div>
 
       {/* Action Buttons */}
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-100 max-w-md mx-auto flex gap-3">
+      <div className="fixed bottom-0 left-0 right-0 p-5 bg-black/60 backdrop-blur-xl border-t border-white/10 max-w-md mx-auto flex gap-3 z-30">
         <button 
           onClick={handleDelete}
           disabled={isDeleting}
-          className="flex-1 flex items-center justify-center gap-2 py-3 border border-red-200 text-red-500 rounded-lg font-bold text-sm hover:bg-red-50 transition-colors disabled:opacity-50"
+          className="flex-[1] flex items-center justify-center gap-2 py-3.5 border border-red-500/30 text-red-400 bg-red-500/10 rounded-2xl font-bold text-sm hover:bg-red-500/20 hover:border-red-500/50 transition-all disabled:opacity-50"
         >
           <Trash2 className="w-4 h-4" />
           {isDeleting ? '삭제 중...' : '삭제'}
         </button>
         <Link 
           to={`/log/${log.id}/edit`}
-          className="flex-[2] flex items-center justify-center gap-2 py-3 bg-black text-white rounded-lg font-bold text-sm hover:bg-gray-800 transition-colors"
+          className="flex-[2] flex items-center justify-center gap-2 py-3.5 bg-white text-black rounded-2xl font-bold text-sm hover:bg-gray-200 transition-all shadow-[0_0_15px_rgba(255,255,255,0.2)]"
         >
           <Pencil className="w-4 h-4" />
           수정

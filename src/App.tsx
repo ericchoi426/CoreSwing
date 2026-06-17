@@ -40,21 +40,29 @@ function AppContent() {
   const hideChrome = isFieldMode || isLogDetail || location.pathname.includes('/edit') || location.pathname.includes('/new');
 
   return (
-    <div className={`min-h-screen max-w-md mx-auto shadow-2xl flex flex-col relative overflow-hidden ${isFieldMode ? 'bg-black' : 'bg-white'}`}>
+  return (
+    <div className={`min-h-screen max-w-md mx-auto flex flex-col relative overflow-hidden bg-[#0a0a0c]`}>
+      
+      {/* Ambient Red Glow Effect */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+        <div className="absolute top-[-10%] left-[-20%] w-[120%] h-[50%] bg-red-900/40 blur-[120px] rounded-full mix-blend-screen opacity-70"></div>
+        <div className="absolute top-[40%] right-[-30%] w-[80%] h-[40%] bg-red-800/20 blur-[100px] rounded-full mix-blend-screen opacity-50"></div>
+      </div>
+
       {/* Header (Hidden in Field Mode & Log Detail) */}
       {!hideChrome && (
-        <header className="px-6 py-5 border-b border-gray-100 flex justify-between items-center bg-white z-10 relative">
-          <h1 className="text-xl font-extrabold tracking-tight text-black">CoreSwing</h1>
+        <header className="px-6 py-5 flex justify-between items-center z-10 relative">
+          <h1 className="text-xl font-extrabold tracking-tight text-white drop-shadow-md">CoreSwing</h1>
           {!accessToken ? (
             <button 
               onClick={() => login()}
               disabled={isInitializing}
-              className="text-xs font-bold text-gray-500 uppercase tracking-widest hover:text-black transition-colors disabled:opacity-50"
+              className="px-4 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/10 rounded-full text-xs font-bold text-white uppercase tracking-widest transition-all disabled:opacity-50 shadow-lg"
             >
               {isInitializing ? '연결 중...' : '로그인'}
             </button>
           ) : (
-            <span className="text-xs font-bold text-gray-500 uppercase tracking-widest">
+            <span className="px-3 py-1.5 bg-green-500/20 border border-green-500/30 rounded-full text-[10px] font-bold text-green-400 uppercase tracking-widest backdrop-blur-md">
               연결됨
             </span>
           )}
@@ -62,7 +70,7 @@ function AppContent() {
       )}
 
       {/* Main Content Area */}
-      <main className={`flex-1 overflow-y-auto ${!hideChrome ? 'pb-24 bg-gray-50' : ''}`}>
+      <main className={`flex-1 overflow-y-auto z-10 relative ${!hideChrome ? 'pb-24' : ''}`}>
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/theory" element={<TheoryLibrary />} />
@@ -77,16 +85,16 @@ function AppContent() {
 
       {/* Bottom Navigation (Hidden in Field Mode & Log Detail) */}
       {!hideChrome && (
-        <nav className="absolute bottom-0 w-full bg-white border-t border-gray-100 flex justify-around py-3 z-10 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
-          <Link to="/" className={`flex flex-col items-center gap-1 transition-colors ${location.pathname === '/' ? 'text-black' : 'text-gray-400 hover:text-black'}`}>
+        <nav className="absolute bottom-0 w-full bg-black/40 backdrop-blur-xl border-t border-white/10 flex justify-around py-3 z-20">
+          <Link to="/" className={`flex flex-col items-center gap-1 transition-all ${location.pathname === '/' ? 'text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]' : 'text-gray-500 hover:text-gray-300'}`}>
             <Home className="w-5 h-5" strokeWidth={location.pathname === '/' ? 2.5 : 2} />
             <span className="text-[10px] font-bold uppercase tracking-widest">홈</span>
           </Link>
-          <Link to="/theory" className={`flex flex-col items-center gap-1 transition-colors ${location.pathname === '/theory' ? 'text-black' : 'text-gray-400 hover:text-black'}`}>
+          <Link to="/theory" className={`flex flex-col items-center gap-1 transition-all ${location.pathname === '/theory' ? 'text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]' : 'text-gray-500 hover:text-gray-300'}`}>
             <BookOpen className="w-5 h-5" strokeWidth={location.pathname === '/theory' ? 2.5 : 2} />
             <span className="text-[10px] font-bold uppercase tracking-widest">이론</span>
           </Link>
-          <Link to="/log" className={`flex flex-col items-center gap-1 transition-colors ${location.pathname === '/log' ? 'text-black' : 'text-gray-400 hover:text-black'}`}>
+          <Link to="/log" className={`flex flex-col items-center gap-1 transition-all ${location.pathname === '/log' ? 'text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]' : 'text-gray-500 hover:text-gray-300'}`}>
             <SquarePen className="w-5 h-5" strokeWidth={location.pathname === '/log' ? 2.5 : 2} />
             <span className="text-[10px] font-bold uppercase tracking-widest">일지</span>
           </Link>
