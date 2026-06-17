@@ -42,10 +42,16 @@ function AppContent() {
   return (
     <div className={`min-h-screen max-w-md mx-auto flex flex-col relative overflow-hidden bg-[#0a0a0c]`}>
       
-      {/* Ambient Red Glow Effect */}
+      {/* Ambient Red Glow Effect - Optimized for iOS Safari */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
-        <div className="absolute top-[-10%] left-[-20%] w-[120%] h-[50%] bg-red-900/40 blur-[120px] rounded-full mix-blend-screen opacity-70"></div>
-        <div className="absolute top-[40%] right-[-30%] w-[80%] h-[40%] bg-red-800/20 blur-[100px] rounded-full mix-blend-screen opacity-50"></div>
+        <div 
+          className="absolute top-[-10%] left-[-20%] w-[140%] h-[60%] opacity-70"
+          style={{ background: 'radial-gradient(circle, rgba(127, 29, 29, 0.4) 0%, rgba(10, 10, 12, 0) 70%)' }}
+        ></div>
+        <div 
+          className="absolute top-[40%] right-[-30%] w-[100%] h-[50%] opacity-50"
+          style={{ background: 'radial-gradient(circle, rgba(153, 27, 27, 0.3) 0%, rgba(10, 10, 12, 0) 70%)' }}
+        ></div>
       </div>
 
       {/* Header (Hidden in Field Mode & Log Detail) */}
