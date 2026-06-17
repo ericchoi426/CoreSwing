@@ -40,7 +40,6 @@ function AppContent() {
   const hideChrome = isFieldMode || isLogDetail || location.pathname.includes('/edit') || location.pathname.includes('/new');
 
   return (
-  return (
     <div className={`min-h-screen max-w-md mx-auto flex flex-col relative overflow-hidden bg-[#0a0a0c]`}>
       
       {/* Ambient Red Glow Effect */}

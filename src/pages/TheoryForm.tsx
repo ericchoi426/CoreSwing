@@ -67,7 +67,6 @@ export default function TheoryForm() {
   };
 
   return (
-  return (
     <div className="flex flex-col min-h-screen bg-transparent pb-20">
       <header className="px-6 py-5 bg-black/40 backdrop-blur-xl border-b border-white/10 flex items-center justify-between sticky top-0 z-20 shadow-lg">
         <button onClick={() => navigate(-1)} className="p-2 -ml-2 text-white/50 hover:text-white transition-colors">

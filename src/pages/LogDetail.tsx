@@ -74,7 +74,6 @@ export default function LogDetail() {
   if (!log) return null;
 
   return (
-  return (
     <div className="bg-transparent min-h-screen flex flex-col pb-24">
       {/* Header */}
       <div className="p-6 flex items-center justify-between bg-black/40 backdrop-blur-xl border-b border-white/10 sticky top-0 z-20 shadow-lg">
