@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Save } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { useLogs } from '../hooks/useLogs';
 import { useNavigate, useParams } from 'react-router-dom';
 
